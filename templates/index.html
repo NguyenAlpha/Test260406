@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blood Group Detection</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 760px; margin: 2rem auto; padding: 0 1rem; }
+    .card { border: 1px solid #ddd; border-radius: 8px; padding: 1rem; }
+    .error { color: #b30000; margin-top: .75rem; }
+    .result { background: #f8f8f8; border-radius: 6px; padding: .75rem; margin-top: 1rem; }
+    button { padding: .5rem .9rem; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Blood Group Detection</h1>
+  <p>Upload a test-card image with Anti-A, Anti-B, Anti-D regions (left to right).</p>
+
+  <div class="card">
+    <form action="/predict" method="post" enctype="multipart/form-data">
+      <input type="file" name="image" accept="image/*" required />
+      <button type="submit">Detect</button>
+    </form>
+
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+
+    {% if result %}
+      <div class="result">
+        <h3>Result: {{ result.blood_group }}</h3>
+        <p>Confidence: {{ result.confidence }}</p>
+        <ul>
+          <li>Anti-A: {{ "Positive" if result.reactions.anti_a.positive else "Negative" }} (score={{ result.reactions.anti_a.score }})</li>
+          <li>Anti-B: {{ "Positive" if result.reactions.anti_b.positive else "Negative" }} (score={{ result.reactions.anti_b.score }})</li>
+          <li>Anti-D: {{ "Positive" if result.reactions.anti_d.positive else "Negative" }} (score={{ result.reactions.anti_d.score }})</li>
+        </ul>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
