@@ -19,6 +19,7 @@ class TestClassifier(unittest.TestCase):
         img[:, :100] = np.clip(img[:, :100] + rng.integers(-60, 60, size=(90, 100, 3)), 0, 255)
         img[:, 200:] = np.clip(img[:, 200:] + rng.integers(-70, 70, size=(90, 100, 3)), 0, 255)
 
+        # Lower threshold is intentional here so synthetic noise reliably crosses positive cutoff.
         result = predict_blood_group(img, threshold=0.2)
         self.assertIn("blood_group", result)
         self.assertIn("reactions", result)

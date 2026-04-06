@@ -38,8 +38,8 @@ def api_predict():
 
     try:
         result = predict_blood_group(image)
-    except ValueError as exc:
-        return jsonify({"error": str(exc)}), 400
+    except ValueError:
+        return jsonify({"error": "Unable to process image for blood grouping"}), 400
 
     return jsonify(result), 200
 
@@ -60,8 +60,8 @@ def web_predict():
 
     try:
         result = predict_blood_group(image)
-    except ValueError as exc:
-        return render_template("index.html", error=str(exc))
+    except ValueError:
+        return render_template("index.html", error="Unable to process image for blood grouping.")
 
     return render_template("index.html", result=result)
 

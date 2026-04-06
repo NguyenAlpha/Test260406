@@ -28,12 +28,12 @@
 
     {% if result %}
       <div class="result">
-        <h3>Result: {{ result.blood_group }}</h3>
-        <p>Confidence: {{ result.confidence }}</p>
+        <h3>Result: {{ result["blood_group"] }}</h3>
+        <p>Confidence: {{ result["confidence"] }}</p>
         <ul>
-          <li>Anti-A: {{ "Positive" if result.reactions.anti_a.positive else "Negative" }} (score={{ result.reactions.anti_a.score }})</li>
-          <li>Anti-B: {{ "Positive" if result.reactions.anti_b.positive else "Negative" }} (score={{ result.reactions.anti_b.score }})</li>
-          <li>Anti-D: {{ "Positive" if result.reactions.anti_d.positive else "Negative" }} (score={{ result.reactions.anti_d.score }})</li>
+          <li>Anti-A: {{ "Positive" if result["reactions"]["anti_a"]["positive"] else "Negative" }} (score={{ result["reactions"]["anti_a"]["score"] }})</li>
+          <li>Anti-B: {{ "Positive" if result["reactions"]["anti_b"]["positive"] else "Negative" }} (score={{ result["reactions"]["anti_b"]["score"] }})</li>
+          <li>Anti-D: {{ "Positive" if result["reactions"]["anti_d"]["positive"] else "Negative" }} (score={{ result["reactions"]["anti_d"]["score"] }})</li>
         </ul>
       </div>
     {% endif %}

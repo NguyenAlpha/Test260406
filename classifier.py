@@ -69,7 +69,7 @@ def predict_blood_group(image_bgr: np.ndarray, threshold: float = 0.35) -> Dict[
     blood_group = _group_from_reactions(anti_a.positive, anti_b.positive, anti_d.positive)
 
     scores = np.array([anti_a.score, anti_b.score, anti_d.score], dtype=float)
-    confidence = float(np.clip(np.mean(np.abs(scores - threshold)) / max(threshold, 1e-6), 0.0, 1.0))
+    separation_metric = float(np.clip(np.mean(np.abs(scores - threshold)) / max(threshold, 1e-6), 0.0, 1.0))
 
     return {
         "blood_group": blood_group,
@@ -78,5 +78,5 @@ def predict_blood_group(image_bgr: np.ndarray, threshold: float = 0.35) -> Dict[
             "anti_b": {"positive": anti_b.positive, "score": round(anti_b.score, 4)},
             "anti_d": {"positive": anti_d.positive, "score": round(anti_d.score, 4)},
         },
-        "confidence": round(confidence, 4),
+        "confidence": round(separation_metric, 4),
     }
